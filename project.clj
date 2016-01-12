@@ -1,8 +1,8 @@
 (defproject word-finder "0.1.0-SNAPSHOT"
-  :description "FIXME: write this!"
-  :url "http://example.com/FIXME"
+  :description "A Clojure & Clojurescript application to find words in a dictionary."
+  :url "https://github.com/davidjameshumphreys"
   :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+            :url  "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.170"]
@@ -16,31 +16,30 @@
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled"
                                     "target"]
-  
+
   :source-paths ["src"]
 
   :cljsbuild {
               :builds [{:id "devcards"
                         :source-paths ["src"]
-                        :figwheel { :devcards true } ;; <- note this
-                        :compiler { :main       "word-finder.core"
-                                    :asset-path "js/compiled/devcards_out"
-                                    :output-to  "resources/public/js/compiled/word_finder_devcards.js"
-                                    :output-dir "resources/public/js/compiled/devcards_out"
-                                    :source-map-timestamp true }}
+                        :figwheel { :devcards true }
+                        :compiler {:main                 "word-finder.core"
+                                   :asset-path           "js/compiled/devcards_out"
+                                   :output-to            "resources/public/js/compiled/word_finder_devcards.js"
+                                   :output-dir           "resources/public/js/compiled/devcards_out"
+                                   :source-map-timestamp true }}
                        {:id "dev"
                         :source-paths ["src"]
                         :figwheel true
-                        :compiler {:main       "word-finder.core"
-                                   :asset-path "js/compiled/out"
-                                   :output-to  "resources/public/js/compiled/word_finder.js"
-                                   :output-dir "resources/public/js/compiled/out"
+                        :compiler {:main                 "word-finder.core"
+                                   :asset-path           "js/compiled/out"
+                                   :output-to            "resources/public/js/compiled/word_finder.js"
+                                   :output-dir           "resources/public/js/compiled/out"
                                    :source-map-timestamp true }}
                        {:id "prod"
                         :source-paths ["src"]
-                        :compiler {:main       "word-finder.core"
-                                   :asset-path "js/compiled/out"
-                                   :output-to  "resources/public/js/compiled/word_finder.js"
+                        :compiler {:main          "word-finder.core"
+                                   :asset-path    "js/compiled/out"
+                                   :output-to     "resources/public/js/compiled/word_finder.js"
                                    :optimizations :advanced}}]}
-
   :figwheel { :css-dirs ["resources/public/css"] })
