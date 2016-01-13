@@ -15,6 +15,14 @@
   :clean-targets ^{:protect false} ["resources/public/js/compiled"
                                     "target"]
   :source-paths ["src/clj" "src/cljs"]
+  :test-paths ["test/clj"]
+  :profiles {:dev {:source-paths ["dev"]
+                   :dependencies [[org.clojure/tools.namespace "0.2.11"]
+                                  [com.cemerick/piggieback "0.2.1"]
+                                  [figwheel-sidecar "0.5.0-1"]]
+                   :repl-options {:init-ns          user
+                                  :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}
+             }
   :cljsbuild {
               :builds [{:id "devcards"
                         :figwheel { :devcards true }
