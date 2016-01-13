@@ -10,18 +10,13 @@
                  [sablono "0.4.0"]
                  #_[org.omcljs/om "0.9.0"]
                  #_[reagent "0.5.1"]]
-
   :plugins [[lein-cljsbuild "1.1.1"]
             [lein-figwheel "0.5.0-1"]]
-
   :clean-targets ^{:protect false} ["resources/public/js/compiled"
                                     "target"]
-
-  :source-paths ["src"]
-
+  :source-paths ["src/clj" "src/cljs"]
   :cljsbuild {
               :builds [{:id "devcards"
-                        :source-paths ["src"]
                         :figwheel { :devcards true }
                         :compiler {:main                 "word-finder.core"
                                    :asset-path           "js/compiled/devcards_out"
@@ -29,7 +24,6 @@
                                    :output-dir           "resources/public/js/compiled/devcards_out"
                                    :source-map-timestamp true }}
                        {:id "dev"
-                        :source-paths ["src"]
                         :figwheel true
                         :compiler {:main                 "word-finder.core"
                                    :asset-path           "js/compiled/out"
@@ -37,7 +31,6 @@
                                    :output-dir           "resources/public/js/compiled/out"
                                    :source-map-timestamp true }}
                        {:id "prod"
-                        :source-paths ["src"]
                         :compiler {:main          "word-finder.core"
                                    :asset-path    "js/compiled/out"
                                    :output-to     "resources/public/js/compiled/word_finder.js"
