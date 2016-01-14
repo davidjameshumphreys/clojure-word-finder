@@ -1,7 +1,8 @@
 (ns dev
   (:require [clojure.test]
             [clojure.tools.namespace.repl :as repl]
-            [figwheel-sidecar.repl-api :as fig :refer [start-figwheel! cljs-repl]]
+            [figwheel-sidecar.repl-api :as fig :refer [start-figwheel! cljs-repl ;;stop-figwheel!
+                                                       ]]
             [io.pedestal.http :as bootstrap]
             [word-finder
              [service :as service]
@@ -10,6 +11,31 @@
 ;;FIXME: add test directory.
 (defn run-all-tests []
   (clojure.test/run-all-tests #"word-finder.*test$"))
+
+(def figwheel-config
+  {:figwheel-options { :css-dirs ["resources/public/css"] }
+   :build-ids        ["devcards"]
+   :all-builds
+   [{:id "devcards"
+     :figwheel { :devcards true }
+     :compiler {:main                 "word-finder.core"
+                :source-paths         ["src/cljs"]
+                :asset-path           "js/compiled/devcards_out"
+                :output-to            "resources/public/js/compiled/word_finder_devcards.js"
+                :output-dir           "resources/public/js/compiled/devcards_out"
+                :source-map-timestamp true }}
+    {:id "dev"
+     :figwheel true
+     :compiler {:main                 "word-finder.core"
+                :asset-path           "js/compiled/out"
+                :output-to            "resources/public/js/compiled/word_finder.js"
+                :output-dir           "resources/public/js/compiled/out"
+                :source-map-timestamp true }}
+    {:id "prod"
+     :compiler {:main          "word-finder.core"
+                :asset-path    "js/compiled/out"
+                :output-to     "resources/public/js/compiled/word_finder.js"
+                :optimizations :advanced}}]})
 
 (defn start [& [opts]]
   (let [new-opts (merge

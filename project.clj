@@ -17,7 +17,7 @@
                  [org.slf4j/log4j-over-slf4j "1.7.13"]
                  [org.clojure/tools.logging "0.3.1"]
 
-                 [org.clojure/clojurescript "1.7.170"
+                 [org.clojure/clojurescript "1.7.48" :scope "provided"
                   :exclusions [org.clojure/tools.reader]]
                  [devcards "0.2.1"
                   :exclusions [org.clojure/tools.reader]]
@@ -27,9 +27,10 @@
                  [re-frame "0.7.0-alpha"]
                  #_[org.omcljs/om "0.9.0"]
                  ]
-  :plugins [[lein-cljsbuild "1.1.1"
+  :plugins [[lein-cljsbuild "1.1.2"
              :exclusions [org.clojure/clojure]]
-            [lein-figwheel "0.5.0-1"
+            ;; this version of Lein figwheel will work as a plugin, 0.5.0-3 doesn't work for me.
+            [lein-figwheel "0.3.9"
              :exclusions [org.clojure/clojure
                           ring/ring-core
                           org.clojure/tools.reader]]]
@@ -42,13 +43,14 @@
                    :dependencies [[org.clojure/tools.namespace "0.2.11" :scope "test"]
                                   [com.cemerick/piggieback "0.2.1"
                                    :exclusions [org.clojure/tools.reader]]
-                                  [figwheel-sidecar "0.5.0-1"
+                                  ;; different version of figwheel for working within the REPL!!!
+                                  [figwheel-sidecar "0.3.9"
                                    :exclusions [org.clojure/clojure]]]
                    :repl-options {:init-ns          user
-                                  :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}
-             }
+                                  :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}}
   :cljsbuild {
               :builds [{:id "devcards"
+                        :source-paths ["src/cljs"]
                         :figwheel { :devcards true }
                         :compiler {:main                 "word-finder.core"
                                    :asset-path           "js/compiled/devcards_out"
@@ -56,6 +58,7 @@
                                    :output-dir           "resources/public/js/compiled/devcards_out"
                                    :source-map-timestamp true }}
                        {:id "dev"
+                        :source-paths ["src/cljs"]
                         :figwheel true
                         :compiler {:main                 "word-finder.core"
                                    :asset-path           "js/compiled/out"
