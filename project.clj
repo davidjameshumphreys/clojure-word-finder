@@ -1,6 +1,6 @@
 (defproject word-finder "0.1.0-SNAPSHOT"
   :description "A Clojure & Clojurescript application to find words in a dictionary."
-  :url "https://github.com/davidjameshumphreys"
+  :url "https://github.com/davidjameshumphreys/clojure-word-finder"
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
 

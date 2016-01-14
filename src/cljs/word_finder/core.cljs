@@ -16,7 +16,7 @@
              [:h1 "This is your first devcard!"]]))
 
 (defcard input-testing
-  "Testing our basic input component"
+  "Testing our basic input component."
 
   (fn [data _]
     (reagent/as-element [(components/input-text-field #(do (println "Current value:" %)
@@ -24,6 +24,18 @@
 
   {:value nil}
   {:inspect-data true :history true})
+
+(def input-for-output (reagent/atom ["veda",
+                                     "vega",
+                                     "vela",
+                                     "vera",
+                                     "veta"]))
+
+(defcard output-testing
+  "Showing how the list of output will look on-screen."
+  (fn [data _]
+    (reagent/as-element [components/show-return-values data]))
+  input-for-output)
 
 (defn main []
   ;; conditionally start the app based on wether the #main-app-area
