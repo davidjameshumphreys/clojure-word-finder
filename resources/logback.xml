@@ -1,0 +1,26 @@
+<!-- Simple Logback configuration for STDOUT-only
+     Place in resources/logback.xml to quiet down logging output -->
+<configuration scan="true" scanPeriod="10 seconds">
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoder defaults to ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+    <encoder>
+      <pattern>%-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+    <!-- Only log level INFO and above -->
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+  </appender>
+
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+  </root>
+
+  <!-- For loggers in the these namespaces, log at all levels. -->
+  <logger name="user" level="ALL" />
+  <logger name="io.pedestal" level="ALL" />
+  <logger name="org.eclipse" level="INFO"/>
+
+</configuration>
