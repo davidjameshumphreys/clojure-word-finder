@@ -5,7 +5,8 @@
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.7.0"]
-                 [jarohen/nomad "0.7.2"]
+                 [jarohen/nomad "0.7.2"
+                  :exclusions [org.clojure/tools.reader]]
                  [frankiesardo/pedestal-swagger "0.4.4"]
                  [io.pedestal/pedestal.service "0.4.1"]
                  [io.pedestal/pedestal.jetty "0.4.1"]
@@ -16,8 +17,10 @@
                  [org.slf4j/log4j-over-slf4j "1.7.13"]
                  [org.clojure/tools.logging "0.3.1"]
 
-                 [org.clojure/clojurescript "1.7.170"]
-                 [devcards "0.2.1"]
+                 [org.clojure/clojurescript "1.7.170"
+                  :exclusions [org.clojure/tools.reader]]
+                 [devcards "0.2.1"
+                  :exclusions [org.clojure/tools.reader]]
                  [sablono "0.4.0"]
 
                  #_[org.omcljs/om "0.9.0"]
@@ -26,19 +29,19 @@
              :exclusions [org.clojure/clojure]]
             [lein-figwheel "0.5.0-1"
              :exclusions [org.clojure/clojure
-                          org.clojure/tools.reader
-                          ring/ring-core]]]
+                          ring/ring-core
+                          org.clojure/tools.reader]]]
   :clean-targets ^{:protect false} ["resources/public/js/compiled"
                                     "target"]
   :source-paths ["src/clj" "src/cljs"]
   :test-paths ["test/clj"]
   :profiles {:dev {:source-paths ["dev"]
                    :jvm-opts ["-Dnomad.env=dev"]
-                   :dependencies [[org.clojure/tools.namespace "0.2.11"]
-                                  [com.cemerick/piggieback "0.2.1"]
+                   :dependencies [[org.clojure/tools.namespace "0.2.11" :scope "test"]
+                                  [com.cemerick/piggieback "0.2.1"
+                                   :exclusions [org.clojure/tools.reader]]
                                   [figwheel-sidecar "0.5.0-1"
-                                   :exclusions [org.clojure/clojure
-                                                org.clojure/tools.reader]]]
+                                   :exclusions [org.clojure/clojure]]]
                    :repl-options {:init-ns          user
                                   :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}
              }

@@ -1,11 +1,11 @@
 (ns dev
   (:require [clojure.test]
             [clojure.tools.namespace.repl :as repl]
+            [figwheel-sidecar.repl-api :as fig :refer [start-figwheel! cljs-repl]]
             [io.pedestal.http :as bootstrap]
             [word-finder
              [service :as service]
-             [server :as server]]
-            [figwheel-sidecar.repl-api :as fig :refer [start-figwheel! cljs-repl]]))
+             [server :as server]]))
 
 ;;FIXME: add test directory.
 (defn run-all-tests []
