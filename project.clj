@@ -33,6 +33,7 @@
   :source-paths ["src/clj" "src/cljs"]
   :test-paths ["test/clj"]
   :profiles {:dev {:source-paths ["dev"]
+                   :jvm-opts ["-Dnomad.env=dev"]
                    :dependencies [[org.clojure/tools.namespace "0.2.11"]
                                   [com.cemerick/piggieback "0.2.1"]
                                   [figwheel-sidecar "0.5.0-1"
