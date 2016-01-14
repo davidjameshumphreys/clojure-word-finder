@@ -1,0 +1,39 @@
+(ns word-finder.service
+  (:require [io.pedestal.http :as bootstrap]
+            [io.pedestal.http.route.definition :refer [defroutes]]
+            [pedestal.swagger.core :as swagger]
+            [ring.util.response :refer [response not-found created resource-response content-type status redirect]]
+            [schema.core :as s]
+            [word-finder.handlers.service-handlers :as handlers]))
+
+(s/with-fn-validation
+  (swagger/defroutes api-routes
+    {:info {:title        "Word finder"
+            :description  "API to search for words in a dictionary."
+            :externalDocs {:description "Find out more"
+                           ;;FIXME: fix the external URL.
+                           :url         "https://FIXME.com"}
+            :version      "2.0"}}
+    [[["/api" ^:interceptors [(swagger/body-params)
+                              bootstrap/json-body
+                              (swagger/coerce-request)
+                              (swagger/validate-response)]
+       ["/status"
+        {:get handlers/status}]
+       ["/swagger.json" {:get [(swagger/swagger-json)]}]
+       ["/*resource" {:get [(swagger/swagger-ui)]}]]]]))
+
+(defroutes app-routes
+  [[ ;;["/cards.html" {:get cards-page}]
+    ;; ["/*route" {:get home}]
+    ]])
+
+(def routes
+  (concat api-routes app-routes))
+
+(def service
+  {:env :prod
+   ::bootstrap/routes routes
+   ::bootstrap/router :linear-search
+   ::bootstrap/resource-path "/public"
+   ::bootstrap/type :jetty})
