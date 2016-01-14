@@ -12,8 +12,7 @@
     {:info {:title        "Word finder"
             :description  "API to search for words in a dictionary."
             :externalDocs {:description "Find out more"
-                           ;;FIXME: fix the external URL.
-                           :url         "https://FIXME.com"}
+                           :url         "https://github.com/davidjameshumphreys/clojure-word-finder"}
             :version      "2.0"}}
     [[["/api" ^:interceptors [(swagger/body-params)
                               bootstrap/json-body
