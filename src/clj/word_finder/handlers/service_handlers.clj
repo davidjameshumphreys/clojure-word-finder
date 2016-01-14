@@ -24,3 +24,23 @@
     (fn [request]
       {:status 200
        :body   {:found (act/matching-words (:word-db request) (-> request :params :find))}}))))
+
+(def find-anagrams
+  (sw.doc/annotate
+   {:summary "Find exact anagrams"
+    :parameters {:query {:find s/Str}}}
+   (handler
+    ::find-anagrams
+    (fn [request]
+      {:status 200
+       :body {:found (act/exact-anagrams (:word-db request) (-> request :params :find))}}))))
+
+(def find-sub-anagrams
+  (sw.doc/annotate
+   {:summary "Find words that can be made from the input word."
+    :parameters {:query {:find s/Str}}}
+   (handler
+    ::find-sub-anagrams
+    (fn [request]
+      {:status 200
+       :body {:found (act/sub-anagrams (:word-db request) (-> request :params :find))}}))))

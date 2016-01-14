@@ -23,7 +23,9 @@
        ["/status"
         {:get handlers/status}]
        ["/words" ^:interceptors []
-        ["/find" {:get handlers/find-words}]]
+        ["/find" {:get handlers/find-words}]
+        ["/anagrams" {:get handlers/find-anagrams}]
+        ["/sub-anagrams" {:get handlers/find-sub-anagrams}]]
        ["/swagger.json" {:get [(swagger/swagger-json)]}]
        ["/*resource" {:get [(swagger/swagger-ui)]}]]]]))
 
