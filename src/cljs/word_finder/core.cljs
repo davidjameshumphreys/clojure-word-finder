@@ -1,15 +1,29 @@
 (ns word-finder.core
   (:require
    #_[om.core :as om :include-macros true]
-   [sablono.core :as sab :include-macros true])
+   [sablono.core :as sab :include-macros true]
+   [devcards.core :as dc]
+   [re-frame.core :as rf]
+   [reagent.core :as reagent]
+   [word-finder.components.input :as components])
   (:require-macros
-   [devcards.core :as dc :refer [defcard deftest]]))
+   [devcards.core :as dc :refer [defcard deftest defcard-rg]]))
 
 (enable-console-print!)
 
 (defcard first-card
   (sab/html [:div
              [:h1 "This is your first devcard!"]]))
+
+(defcard input-testing
+  "Testing our basic input component"
+
+  (fn [data _]
+    (reagent/as-element [(components/input-text-field #(do (println "Current value:" %)
+                                                           (reset! data {:value %})))]))
+
+  {:value nil}
+  {:inspect-data true :history true})
 
 (defn main []
   ;; conditionally start the app based on wether the #main-app-area
@@ -21,4 +35,3 @@
 
 ;; remember to run lein figwheel and then browse to
 ;; http://localhost:3449/cards.html
-

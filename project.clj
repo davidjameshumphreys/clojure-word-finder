@@ -22,9 +22,11 @@
                  [devcards "0.2.1"
                   :exclusions [org.clojure/tools.reader]]
                  [sablono "0.4.0"]
-
+                 [cljs-ajax "0.5.2"]
+                 [reagent "0.6.0-alpha"]
+                 [re-frame "0.7.0-alpha"]
                  #_[org.omcljs/om "0.9.0"]
-                 #_[reagent "0.5.1"]]
+                 ]
   :plugins [[lein-cljsbuild "1.1.1"
              :exclusions [org.clojure/clojure]]
             [lein-figwheel "0.5.0-1"
