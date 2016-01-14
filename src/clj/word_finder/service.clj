@@ -22,7 +22,8 @@
                               (attach-word-db)]
        ["/status"
         {:get handlers/status}]
-       ["/words" ^:interceptors []]
+       ["/words" ^:interceptors []
+        ["/find" {:get handlers/find-words}]]
        ["/swagger.json" {:get [(swagger/swagger-json)]}]
        ["/*resource" {:get [(swagger/swagger-ui)]}]]]]))
 

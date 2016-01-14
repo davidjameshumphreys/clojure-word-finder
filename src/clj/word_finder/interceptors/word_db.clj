@@ -1,7 +1,7 @@
 (ns word-finder.interceptors.word-db
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
-            [io.pedestal.interceptor.helpers :refer [before]]))
+            [io.pedestal.interceptor.helpers :refer [on-request]]))
 
 (def words (io/resource "words.txt"))
 
@@ -13,9 +13,11 @@
          (map str/lower-case)
          doall)))
 
-(defn attach-word-db []
-  (let [w (get-words)]
-    (before
-     ::attach-word-db
-     (fn [request]
-       (assoc request :word-db w)))))
+(defonce ^{:private true} word-list (get-words))
+(defn attach-word-db
+  "Add the word-db into the request."
+  []
+  (on-request
+   ::attach-word-db
+   (fn [request]
+     (assoc request :word-db word-list))))
