@@ -36,3 +36,9 @@ Start the ClojureScript frontend by running `lein figwheel`.  If the Clojure REP
 The default ClojureScript build is `devcards` there is a separate `cards.html` that will execute this code.  See more at the [Devcards homepage](https://github.com/bhauman/devcards).
 
 There are some basic Re-frame components already written.
+
+### Devcards ###
+The default Clojurescript build is named `devcards` it plugs-in some extra functionality.  To start playing with it, go to [localhost:3449/cards.html](http://localhost:3449/cards.html) when you have figwheel running. Any changes to the Clojurescript code should be reloaded in the webpage for you.
+
+# Swagger API #
+There is a pedestal-swagger API located on [localhost:8080](http://localhost:8080/api).
