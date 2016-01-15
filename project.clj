@@ -61,19 +61,20 @@
                    :repl-options {:init-ns          user
                                   :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}}
   :cljsbuild {
-              :builds [{:id "devcards"
-                        :source-paths ["src/cljs"]
-                        :figwheel { :devcards true }
-                        :compiler {:main                 "word-finder.core"
-                                   :source-paths         ["src/cljs"]
-                                   :asset-path           "js/compiled/devcards_out"
-                                   :output-to            "resources/public/js/compiled/word_finder_devcards.js"
-                                   :output-dir           "resources/public/js/compiled/devcards_out"
-                                   :source-map-timestamp true }}
+              :builds [{:id           "devcards"
+                        :source-paths ["src/cljs" "src/clj"]
+                        :figwheel     { :devcards true }
+                        :compiler     {:main                 "word-finder.core"
+                                       :source-paths         ["src/cljs" "src/clj"]
+                                       :asset-path           "js/compiled/devcards_out"
+                                       :output-to            "resources/public/js/compiled/word_finder_devcards.js"
+                                       :output-dir           "resources/public/js/compiled/devcards_out"
+                                       :source-map-timestamp true }}
                        {:id "dev"
-                        :source-paths ["src/cljs"]
+                        :source-paths ["src/cljs" "src/clj"]
                         :figwheel true
                         :compiler {:main                 "word-finder.core"
+                                   :source-paths         ["src/cljs" "src/clj"]
                                    :asset-path           "js/compiled/out"
                                    :output-to            "resources/public/js/compiled/word_finder.js"
                                    :output-dir           "resources/public/js/compiled/out"
