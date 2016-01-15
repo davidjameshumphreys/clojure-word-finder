@@ -6,10 +6,14 @@
 ;;FIXME: the string interpolation can be easily broken.
 (defn find-words [input-string callback]
   (GET (str server "find" "?find=" input-string)
-      {:handler #(callback %)
+      {:handler       callback
        :error-handler #(println "ERROR" %)}))
 
 (defn find-anagrams [input-string callback]
   (GET (str server "anagrams" "?find=" input-string)
-      {:handler #(callback %)
+      {:handler       callback
        :error-handler #(println "ERROR!" %)}))
+
+(defn find-sub-anagrams [input-string callback]
+  (GET (str server "sub-anagrams" "?find=" input-string)
+      {:handler callback}))

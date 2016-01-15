@@ -1,6 +1,7 @@
 (ns word-finder.core
   (:require
-   #_[om.core :as om :include-macros true]
+   [om.core :as om :include-macros true]
+   [om.dom :as dom]
    [sablono.core :as sab :include-macros true]
    [devcards.core :as dc]
    [re-frame.core :as rf]
@@ -8,7 +9,7 @@
    [word-finder.components.input :as components]
    [word-finder.actions.call-server :as server-side])
   (:require-macros
-   [devcards.core :as dc :refer [defcard deftest defcard-rg]]))
+   [devcards.core :as dc :refer [defcard deftest defcard-rg defcard-om]]))
 
 (enable-console-print!)
 
@@ -51,6 +52,22 @@
     ;; this code is bad, callbacks in callbacks!
     (reagent/as-element [(components/input-text-field (fn [input] (server-side/find-anagrams input (fn [server-data] (reset! data server-data)))))]))
   {:value nil}
+  {:inspect-data true :history true})
+
+(defn widget [data owner]
+  (reify
+    om/IRender
+    (render [this]
+      (dom/div nil (:text data)
+               (dom/div nil (om/get-shared owner :counter))
+               ;;(dom/a nil {:on-click #(om/transact! owner :count inc)})
+               ))))
+
+(defcard-om om-widget
+  "Trying to hook in an Om widget..."
+  widget
+  {:text "Counter:"}
+  {:shared {:counter 0}}
   {:inspect-data true :history true})
 
 (defn main []

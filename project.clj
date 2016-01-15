@@ -25,8 +25,7 @@
                  [cljs-ajax "0.5.2"]
                  [reagent "0.6.0-alpha"]
                  [re-frame "0.7.0-alpha"]
-                 #_[org.omcljs/om "0.9.0"]
-                 ]
+                 [org.omcljs/om "0.9.0"]]
   :plugins [[lein-cljsbuild "1.1.2"
              :exclusions [org.clojure/clojure]]
             ;; this version of Lein figwheel will work as a plugin, 0.5.0-3 doesn't work for me.
