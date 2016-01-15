@@ -7,30 +7,13 @@
              [service :as service]
              [server :as server]]))
 
+;; Start the server-side code by running `reset` You can also start
+;; the figwheel repl by running `start-figwheel!`, it can be stopped
+;; with `stop-figwheel!`
+
 ;;FIXME: add test directory.
 (defn run-all-tests []
   (clojure.test/run-all-tests #"word-finder.*test$"))
-
-(def figwheel-config
-  {:figwheel-options {:css-dirs    ["resources/public/css"]}
-   :build-ids        ["devcards"]
-   :all-builds
-   [{:id           "devcards"
-     :source-paths ["src/cljs" "src/clj"]
-     :figwheel     { :devcards true }
-     :compiler     {:main                 "word-finder.core"
-                    :asset-path           "js/compiled/devcards_out"
-                    :output-to            "resources/public/js/compiled/word_finder_devcards.js"
-                    :output-dir           "resources/public/js/compiled/devcards_out"
-                    :source-map-timestamp true }}
-    {:id           "dev"
-     :figwheel     true
-     :source-paths ["src/cljs" "src/clj"]
-     :compiler     {:main                 "word-finder.core"
-                    :asset-path           "js/compiled/out"
-                    :output-to            "resources/public/js/compiled/word_finder.js"
-                    :output-dir           "resources/public/js/compiled/out"
-                    :source-map-timestamp true }}]})
 
 (defn start [& [opts]]
   (let [new-opts (merge

@@ -18,7 +18,7 @@
                  [org.slf4j/log4j-over-slf4j "1.7.13"]
                  [org.clojure/tools.logging "0.3.1"]
                  [org.clojure/tools.reader "1.0.0-alpha2"]
-                 [org.clojure/clojurescript "1.7.48"]
+                 [org.clojure/clojurescript "1.7.228"]
 
                  [devcards "0.2.1"
                   :exclusions [org.clojure/tools.reader
@@ -40,8 +40,7 @@
                  #_[org.omcljs/om "0.9.0"]]
   :plugins [[lein-cljsbuild "1.1.2"
              :exclusions [org.clojure/clojure]]
-            ;; this version of Lein figwheel will work as a plugin, 0.5.0-3 doesn't work for me.
-            [lein-figwheel "0.4.1"
+            [lein-figwheel "0.5.0-3"
              :exclusions [ring/ring-core
                           org.clojure/clojure
                           org.codehaus.plexus/plexus-utils
@@ -50,13 +49,13 @@
                                     "target"]
   :source-paths ["src/clj" "src/cljs"]
   :test-paths ["test/clj"]
+  :min-lein-version "2.5.3"
   :profiles {:dev {:source-paths ["dev"]
                    :jvm-opts ["-Dnomad.env=dev"]
                    :dependencies [[org.clojure/tools.namespace "0.2.11" :scope "test"]
                                   [com.cemerick/piggieback "0.2.1"
                                    :exclusions [org.clojure/tools.reader]]
-                                  ;; different version of figwheel for working within the REPL!!!
-                                  [figwheel-sidecar "0.4.1"
+                                  [figwheel-sidecar "0.5.0-3"
                                    :exclusions [org.clojure/clojure
                                                 org.clojure/clojurescript]]]
                    :repl-options {:init-ns          user
