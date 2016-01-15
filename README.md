@@ -21,8 +21,14 @@ Run:
 (reset)
 ;; :reloading...
 ```
-
 Any changes to the Clojure code can be hot reloaded by running `(reset)` once again.
+
+You may also run figwheel from the same REPL by running:
+```clojure
+(start-figwheel!)
+;; to jump into the ClojureScript REPL run:
+(cljs-repl)
+```
 
 ## ClojureScript frontend ##
 Start the ClojureScript frontend by running `lein figwheel`.  If the Clojure REPL is running you may visit either `localhost:8080` or `localhost:3449` to view the page.
