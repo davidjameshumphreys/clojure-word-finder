@@ -7,7 +7,9 @@
    [re-frame.core :as rf]
    [reagent.core :as reagent]
    [word-finder.components.input :as components]
-   [word-finder.actions.call-server :as server-side])
+   [word-finder.actions.call-server :as server-side]
+   [word-finder.schemas.word-schemas :as word-schemas]
+   [schema.core :as s])
   (:require-macros
    [devcards.core :as dc :refer [defcard deftest defcard-rg #_defcard-om]]))
 
@@ -22,6 +24,7 @@
 
   (fn [data _]
     (reagent/as-element [(components/input-text-field #(do (println "Current value:" %)
+                                                           (println "Schema validated with (nil is good):" (s/check word-schemas/valid-input-regex %))
                                                            (reset! data {:value %})))]))
 
   {:value nil}

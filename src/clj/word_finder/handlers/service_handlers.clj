@@ -1,8 +1,9 @@
 (ns word-finder.handlers.service-handlers
   (:require [io.pedestal.interceptor.helpers :refer [handler]]
-            [word-finder.actions.word-search :as act]
+            [pedestal.swagger.doc :as sw.doc]
             [schema.core :as s]
-            [pedestal.swagger.doc :as sw.doc]))
+            [word-finder.actions.word-search :as act]
+            [word-finder.schemas.word-schemas :as word-schemas]))
 
 (def status
   (sw.doc/annotate
@@ -17,8 +18,9 @@
 (def find-words
   (sw.doc/annotate
    {:summary "Find matching words"
-    :description "Find words that match the input regular-expression."
-    :parameters {:query {:find s/Str}}}
+    :description "Find words that match the input
+    regular-expression. Any non-alphabet characters are converted to '.'"
+    :parameters {:query {:find word-schemas/valid-input-regex}}}
    (handler
     ::find-words
     (fn [request]
@@ -28,7 +30,9 @@
 (def find-anagrams
   (sw.doc/annotate
    {:summary "Find exact anagrams"
-    :parameters {:query {:find s/Str}}}
+    :description "Find the words that are exact anagrams of the input
+    word."
+    :parameters {:query {:find word-schemas/valid-input-string}}}
    (handler
     ::find-anagrams
     (fn [request]
@@ -38,7 +42,8 @@
 (def find-sub-anagrams
   (sw.doc/annotate
    {:summary "Find words that can be made from the input word."
-    :parameters {:query {:find s/Str}}}
+    :description "Find the words that can be made from the input word."
+    :parameters {:query {:find word-schemas/valid-input-string}}}
    (handler
     ::find-sub-anagrams
     (fn [request]
