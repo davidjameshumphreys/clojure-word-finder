@@ -20,15 +20,11 @@
                  [org.clojure/clojurescript "1.7.48" :scope "provided"
                   :exclusions [org.clojure/tools.reader]]
                  [devcards "0.2.1"
-                  :exclusions [org.clojure/tools.reader
-                               org.clojure/clojurescript]]
+                  :exclusions [org.clojure/tools.reader]]
                  [sablono "0.4.0"]
-                 [cljs-ajax "0.5.2"
-                  :exclusions [org.clojure/clojurescript]]
-                 [reagent "0.6.0-alpha"
-                  :exclusions [org.clojure/clojurescript]]
-                 [re-frame "0.7.0-alpha"
-                  :exclusions [org.clojure/clojurescript]]
+                 [cljs-ajax "0.5.2"]
+                 [reagent "0.6.0-alpha"]
+                 [re-frame "0.7.0-alpha"]
                  [org.omcljs/om "0.9.0"]]
   :plugins [[lein-cljsbuild "1.1.2"
              :exclusions [org.clojure/clojure]]
