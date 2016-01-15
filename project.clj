@@ -20,18 +20,24 @@
                  [org.clojure/clojurescript "1.7.48" :scope "provided"
                   :exclusions [org.clojure/tools.reader]]
                  [devcards "0.2.1"
-                  :exclusions [org.clojure/tools.reader]]
+                  :exclusions [org.clojure/tools.reader
+                               org.clojure/clojurescript]]
                  [sablono "0.4.0"]
-                 [cljs-ajax "0.5.2"]
-                 [reagent "0.6.0-alpha"]
-                 [re-frame "0.7.0-alpha"]
+                 [cljs-ajax "0.5.2"
+                  :exclusions [org.clojure/clojurescript
+                               com.fasterxml.jackson.core/jackson-core]]
+                 [reagent "0.6.0-alpha"
+                  :exclusions [org.clojure/clojurescript]]
+                 [re-frame "0.7.0-alpha"
+                  :exclusions [org.clojure/clojurescript]]
                  [org.omcljs/om "0.9.0"]]
   :plugins [[lein-cljsbuild "1.1.2"
              :exclusions [org.clojure/clojure]]
             ;; this version of Lein figwheel will work as a plugin, 0.5.0-3 doesn't work for me.
             [lein-figwheel "0.3.9"
-             :exclusions [org.clojure/clojure
-                          ring/ring-core
+             :exclusions [ring/ring-core
+                          org.clojure/clojure
+                          org.codehaus.plexus/plexus-utils
                           org.clojure/tools.reader]]]
   :clean-targets ^{:protect false} ["resources/public/js/compiled"
                                     "target"]

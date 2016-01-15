@@ -1,8 +1,8 @@
 (ns dev
   (:require [clojure.test]
             [clojure.tools.namespace.repl :as repl]
-            [figwheel-sidecar.repl-api :as fig :refer [start-figwheel! cljs-repl ;;stop-figwheel!
-                                                       ]]
+            #_[figwheel-sidecar.repl-api :as fig :refer [start-figwheel! cljs-repl ;;stop-figwheel!
+                                                         ]]
             [io.pedestal.http :as bootstrap]
             [word-finder
              [service :as service]
