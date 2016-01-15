@@ -1,7 +1,7 @@
 (ns word-finder.core
   (:require
-   [om.core :as om :include-macros true]
-   [om.dom :as dom]
+   #_[om.core :as om :include-macros true]
+   #_[om.dom :as dom]
    [sablono.core :as sab :include-macros true]
    [devcards.core :as dc]
    [re-frame.core :as rf]
@@ -9,12 +9,13 @@
    [word-finder.components.input :as components]
    [word-finder.actions.call-server :as server-side])
   (:require-macros
-   [devcards.core :as dc :refer [defcard deftest defcard-rg defcard-om]]))
+   [devcards.core :as dc :refer [defcard deftest defcard-rg #_defcard-om]]))
 
+;;
 (enable-console-print!)
 
 (defcard first-card
-  (sab/html [:div "This is your first devcard!"]))
+  (sab/html [:div "This is your first devcard :P"]))
 
 (defcard input-testing
   "Testing our basic input component."
@@ -54,21 +55,21 @@
   {:value nil}
   {:inspect-data true :history true})
 
-(defn widget [data owner]
-  (reify
-    om/IRender
-    (render [this]
-      (dom/div nil (:text data)
-               (dom/div nil (om/get-shared owner :counter))
-               ;;(dom/a nil {:on-click #(om/transact! owner :count inc)})
-               ))))
+#_(defn widget [data owner]
+    (reify
+      om/IRender
+      (render [this]
+        (dom/div nil (:text data)
+                 (dom/div nil (om/get-shared owner :counter))
+                 ;;(dom/a nil {:on-click #(om/transact! owner :count inc)})
+                 ))))
 
-(defcard-om om-widget
-  "Trying to hook in an Om widget..."
-  widget
-  {:text "Counter:"}
-  {:shared {:counter 0}}
-  {:inspect-data true :history true})
+#_(defcard-om om-widget
+    "Trying to hook in an Om widget..."
+    widget
+    {:text "Counter:"}
+    {:shared {:counter 0}}
+    {:inspect-data true :history true})
 
 (defn main []
   ;; conditionally start the app based on wether the #main-app-area

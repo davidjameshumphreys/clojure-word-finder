@@ -1,8 +1,8 @@
 (ns dev
   (:require [clojure.test]
             [clojure.tools.namespace.repl :as repl]
-            #_[figwheel-sidecar.repl-api :as fig :refer [start-figwheel! cljs-repl ;;stop-figwheel!
-                                                         ]]
+            [figwheel-sidecar.repl-api :as fig :refer [start-figwheel! cljs-repl ;;stop-figwheel!
+                                                       ]]
             [io.pedestal.http :as bootstrap]
             [word-finder
              [service :as service]
@@ -19,7 +19,7 @@
    [{:id "devcards"
      :figwheel { :devcards true }
      :compiler {:main                 "word-finder.core"
-                :source-paths         ["src/cljs"]
+                :source-paths         ["src/cljs/"]
                 :asset-path           "js/compiled/devcards_out"
                 :output-to            "resources/public/js/compiled/word_finder_devcards.js"
                 :output-dir           "resources/public/js/compiled/devcards_out"

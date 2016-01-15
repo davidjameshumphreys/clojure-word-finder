@@ -5,36 +5,43 @@
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.7.0"]
-                 [jarohen/nomad "0.7.2"
-                  :exclusions [org.clojure/tools.reader]]
-                 [frankiesardo/pedestal-swagger "0.4.4"]
-                 [io.pedestal/pedestal.service "0.4.1"]
-                 [io.pedestal/pedestal.jetty "0.4.1"]
+                 #_[[jarohen/nomad "0.7.2"
+                     :exclusions [org.clojure/tools.reader]]
+                    [frankiesardo/pedestal-swagger "0.4.4"
+                     :exclusions [com.fasterxml.jackson.core/jackson-core]]
+                    [io.pedestal/pedestal.service "0.4.1"]
+                    [io.pedestal/pedestal.jetty "0.4.1"]
 
-                 [ch.qos.logback/logback-classic "1.1.3" :exclusions [org.slf4j/slf4j-api]]
-                 [org.slf4j/jul-to-slf4j "1.7.13"]
-                 [org.slf4j/jcl-over-slf4j "1.7.13"]
-                 [org.slf4j/log4j-over-slf4j "1.7.13"]
-                 [org.clojure/tools.logging "0.3.1"]
+                    [ch.qos.logback/logback-classic "1.1.3" :exclusions [org.slf4j/slf4j-api]]
+                    [org.slf4j/jul-to-slf4j "1.7.13"]
+                    [org.slf4j/jcl-over-slf4j "1.7.13"]
+                    [org.slf4j/log4j-over-slf4j "1.7.13"]
+                    [org.clojure/tools.logging "0.3.1"]]
+                 [org.clojure/tools.reader "1.0.0-alpha2"]
+                 [org.clojure/clojurescript "1.7.48"]
 
-                 [org.clojure/clojurescript "1.7.48" :scope "provided"
-                  :exclusions [org.clojure/tools.reader]]
                  [devcards "0.2.1"
                   :exclusions [org.clojure/tools.reader
+                               cljsjs/react-dom
+                               cljsjs/react
                                org.clojure/clojurescript]]
                  [sablono "0.4.0"]
                  [cljs-ajax "0.5.2"
                   :exclusions [org.clojure/clojurescript
                                com.fasterxml.jackson.core/jackson-core]]
-                 [reagent "0.6.0-alpha"
-                  :exclusions [org.clojure/clojurescript]]
-                 [re-frame "0.7.0-alpha"
-                  :exclusions [org.clojure/clojurescript]]
-                 [org.omcljs/om "0.9.0"]]
+                 [re-frame "0.6.0"
+                  :exclusions [cljsjs/react-dom
+                               org.clojure/clojurescript]]
+                 [cljsjs/react-with-addons "0.14.3-0"]
+                 [cljsjs/react-dom "0.14.3-0"
+                  :exclusions [cljsjs/react]]
+                 [cljsjs/react-dom-server "0.14.3-0"]
+
+                 #_[org.omcljs/om "0.9.0"]]
   :plugins [[lein-cljsbuild "1.1.2"
              :exclusions [org.clojure/clojure]]
             ;; this version of Lein figwheel will work as a plugin, 0.5.0-3 doesn't work for me.
-            [lein-figwheel "0.3.9"
+            [lein-figwheel "0.4.1"
              :exclusions [ring/ring-core
                           org.clojure/clojure
                           org.codehaus.plexus/plexus-utils
@@ -49,8 +56,9 @@
                                   [com.cemerick/piggieback "0.2.1"
                                    :exclusions [org.clojure/tools.reader]]
                                   ;; different version of figwheel for working within the REPL!!!
-                                  [figwheel-sidecar "0.3.9"
-                                   :exclusions [org.clojure/clojure]]]
+                                  #_[figwheel-sidecar "0.5.0-1"
+                                     :exclusions [org.clojure/clojure
+                                                  org.clojure/clojurescript]]]
                    :repl-options {:init-ns          user
                                   :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}}
   :cljsbuild {
