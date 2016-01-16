@@ -42,13 +42,19 @@
     (reagent/as-element [components/show-return-values data]))
   input-for-output)
 
+(defn- callback-action
+  "This function makes the callback chain of functions that we want. It's a private function, note the `-` after defn"
+  [server-action atom-to-reset]
+  (fn [input] (server-action input (fn [server-data] (reset! atom-to-reset server-data)))))
+
 (defcard server-side-testing
   "### Connecting to the server-side code to take the input and search for it.
 
 Search using a simple regular expression like `a.le` to find some four-letter words."
   (fn [data _]
-    ;; this code is bad, callbacks in callbacks!
-    (reagent/as-element [(components/input-text-field (fn [input] (server-side/find-words input (fn [server-data] (reset! data server-data)))))]))
+    (reagent/as-element [(components/input-text-field (callback-action
+                                                       server-side/find-words
+                                                       data))]))
   {:value nil}
   {:inspect-data true :history true})
 
@@ -58,7 +64,8 @@ Search using a simple regular expression like `a.le` to find some four-letter wo
 Searches for exact anagrams of a word; it won't use the regular expression as above.  Try `lemon`."
   (fn [data _]
     ;; this code is bad, callbacks in callbacks!
-    (reagent/as-element [(components/input-text-field (fn [input] (server-side/find-anagrams input (fn [server-data] (reset! data server-data)))))]))
+    (reagent/as-element [(components/input-text-field (callback-action server-side/find-anagrams data))]))
+
   {:value nil}
   {:inspect-data true :history true})
 
@@ -67,7 +74,7 @@ Searches for exact anagrams of a word; it won't use the regular expression as ab
 
 It will find all of the words one can make with the input word."
   (fn [data _]
-    (reagent/as-element [(components/input-text-field (fn [input] (server-side/find-sub-anagrams input (fn [server-data] (reset! data server-data)))))]))
+    (reagent/as-element [(components/input-text-field (callback-action server-side/find-sub-anagrams data))]))
   {:value nil}
   {:inspect-data true :history true})
 
