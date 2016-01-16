@@ -21,7 +21,7 @@
   (fn [data]
     (let [data-snapshot @data]
       (if-not (empty? data-snapshot)
-        [:ul
+        [:ul.word-list
          (doall
           (map-indexed
            (fn [idx d]
