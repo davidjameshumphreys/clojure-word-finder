@@ -1,6 +1,6 @@
 (ns word-finder.components.input
   (:require [reagent.core :as reagent]
-            [re-frame.core :as rf :refer [dispatch]]))
+            [re-frame.core :as rf :refer [dispatch subscribe]]))
 
 (defn input-text-field
   [dispatch-fn]
@@ -47,3 +47,17 @@
        [:span "Enter text:"]
        [input-text-field dispatch-fn]
        [show-return-values data]])))
+
+(defn combined-search-with-subscription
+  "This component uses the re-frame subscription to set the state."
+  [server-fn]
+  (let [dispatch-fn (fn [value]
+                      (server-fn value (fn [server-data]
+                                         (dispatch [:server/found-words (get server-data "found")]))))]
+    (fn combined-render-subscribe-fn
+      []
+      [:div.combined
+       [:span "Enter text:"]
+       [input-text-field dispatch-fn]
+       [show-return-values (subscribe [:found-words])]
+       ])))

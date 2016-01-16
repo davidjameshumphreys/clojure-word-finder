@@ -1,14 +1,17 @@
 (ns word-finder.core
   (:require
-   #_[om.core :as om :include-macros true]
-   #_[om.dom :as dom]
    [sablono.core :as sab :include-macros true]
    [devcards.core :as dc]
    [re-frame.core :as rf]
+   [re-frame.db :refer [app-db]]
    [reagent.core :as reagent]
    [word-finder.components.input :as components]
    [word-finder.actions.call-server :as server-side]
    [word-finder.schemas.word-schemas :as word-schemas]
+   ;; re-frame handlers & subscribers are required in to the
+   ;; namespace, they are evaluated.  You will get warnings on reload
+   ;; because they get re-evaluated.
+   [word-finder.handlers]
    [schema.core :as s])
   (:require-macros
    [devcards.core :as dc :refer [defcard deftest defcard-rg #_defcard-om]]))
@@ -108,6 +111,14 @@ It does the server-side lookup as usual but it will render the list of data that
     (reagent/as-element [components/combined-search-component server-side/find-sub-anagrams]))
   ;; all of the state is internal to the component, so we don't get
   ;; the full benefit of history from devcards.
+  )
+
+(defcard testing-combined-with-subscription
+  "### Combined component using the re-frame handlers and subscriptions."
+  (reagent/as-element [components/combined-search-with-subscription server-side/find-words])
+  app-db
+  {:inspect-data true
+   :history true}
   )
 #_(defn widget [data owner]
     (reify
