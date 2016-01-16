@@ -17,7 +17,7 @@
 (enable-console-print!)
 
 (defcard first-card
-  (sab/html [:div "This is your first devcard :P"]))
+  (sab/html [:div "This is your first devcard :{"]))
 
 (defcard input-testing
   "Testing our basic input component."
@@ -43,7 +43,9 @@
   input-for-output)
 
 (defcard server-side-testing
-  "### Connecting to the server-side code to take the input and search for it."
+  "### Connecting to the server-side code to take the input and search for it.
+
+Search using a simple regular expression like `a.le` to find some four-letter words."
   (fn [data _]
     ;; this code is bad, callbacks in callbacks!
     (reagent/as-element [(components/input-text-field (fn [input] (server-side/find-words input (fn [server-data] (reset! data server-data)))))]))
@@ -51,10 +53,21 @@
   {:inspect-data true :history true})
 
 (defcard server-side-anagram
-  "### Connecting to the server-side code to take the input and search for it."
+  "### Connecting to the server-side code to take the input and search for it.
+
+Searches for exact anagrams of a word; it won't use the regular expression as above.  Try `lemon`."
   (fn [data _]
     ;; this code is bad, callbacks in callbacks!
     (reagent/as-element [(components/input-text-field (fn [input] (server-side/find-anagrams input (fn [server-data] (reset! data server-data)))))]))
+  {:value nil}
+  {:inspect-data true :history true})
+
+(defcard server-side-sub-anagrams
+  "### Connecting to the server-side code to find sub-anagrams
+
+It will find all of the words one can make with the input word."
+  (fn [data _]
+    (reagent/as-element [(components/input-text-field (fn [input] (server-side/find-sub-anagrams input (fn [server-data] (reset! data server-data)))))]))
   {:value nil}
   {:inspect-data true :history true})
 
