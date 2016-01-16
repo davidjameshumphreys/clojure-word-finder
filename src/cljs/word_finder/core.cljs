@@ -16,6 +16,28 @@
 ;;
 (enable-console-print!)
 
+;; this devcard just has Markdown and no extra code running.  It's
+;; great for documentation.
+(defcard
+  "#Getting started
+
+To get started with the server-side examples you will need to run
+`lein repl` instead of `lein figwheel`.
+
+Once the REPL has started run:
+```clojure
+(dev)
+;; => #namespace[dev]
+(reset)
+;; :reloading...
+
+;; then run:
+(start-fighweel!)
+
+;; you can jump into the ClojureScript REPL by running:
+(cljs-repl)
+```")
+
 (defcard first-card
   (sab/html [:div "This is your first devcard :{"]))
 
