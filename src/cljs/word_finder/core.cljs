@@ -78,6 +78,15 @@ It will find all of the words one can make with the input word."
   {:value nil}
   {:inspect-data true :history true})
 
+(defcard testing-combined-component
+  "### Combined component.
+
+It does the server-side lookup as usual but it will render the list of data that is returned."
+  (fn [data _]
+    (reagent/as-element [components/combined-search-component server-side/find-sub-anagrams]))
+  ;; all of the state is internal to the component, so we don't get
+  ;; the full benefit of history from devcards.
+  )
 #_(defn widget [data owner]
     (reify
       om/IRender

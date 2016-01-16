@@ -27,3 +27,23 @@
            (fn [idx d]
              [:li {:key (str "word." idx) :id (str "word-" idx)} d])
            data-snapshot))]))))
+
+;; We can combine our components together and we can manage to keep
+;; state changes local, the mutable parts here don't need to leak
+;; outside of this scope.
+(defn combined-search-component
+  "This component combines the search and result components into one"
+  [server-fn]
+  (let [;; we will hold the server return data in here.
+        data           (reagent/atom nil)
+        ;; we take in the function to call and set our local r/atom so
+        ;; that the second component will update.
+        dispatch-fn    (fn [value]
+                         (server-fn value (fn [server-data]
+                                            (reset! data (get server-data "found")))))]
+    (fn combined-render-fn
+      []
+      [:div.combined
+       [:span "Enter text:"]
+       [input-text-field dispatch-fn]
+       [show-return-values data]])))
