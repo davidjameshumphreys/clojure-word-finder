@@ -106,7 +106,8 @@ It will find all of the words one can make with the input word."
 (defcard testing-combined-component
   "### Combined component.
 
-It does the server-side lookup as usual but it will render the list of data that is returned."
+It does the server-side lookup as usual but it will render the list of
+data that is returned."
   (fn [data _]
     (reagent/as-element [components/combined-search-component server-side/find-sub-anagrams]))
   ;; all of the state is internal to the component, so we don't get
@@ -116,25 +117,30 @@ It does the server-side lookup as usual but it will render the list of data that
 (defcard testing-combined-with-subscription
   "### Combined component using the re-frame handlers and subscriptions."
   (reagent/as-element [components/combined-search-with-subscription server-side/find-words])
+
+  ;; app-db is the special atom that re-frame uses to keep all of its
+  ;; state changes.  Any change should go through the handlers, see handlers.cljs.
   app-db
   {:inspect-data true
-   :history true}
-  )
-#_(defn widget [data owner]
-    (reify
-      om/IRender
-      (render [this]
-        (dom/div nil (:text data)
-                 (dom/div nil (om/get-shared owner :counter))
-                 ;;(dom/a nil {:on-click #(om/transact! owner :count inc)})
-                 ))))
+   :history true})
 
-#_(defcard-om om-widget
-    "Trying to hook in an Om widget..."
-    widget
-    {:text "Counter:"}
-    {:shared {:counter 0}}
-    {:inspect-data true :history true})
+(defcard testing-combined-with-subscription-second-search
+  "### Combined component using the re-frame handlers and subscriptions.
+
+This will do a different call to the server. And both components
+should update. It shows both the strength and weakness of using
+re-frame: centralised state.
+
+Notice how the component above will change when this changes and _vice
+versa_."
+  (reagent/as-element [components/combined-search-with-subscription server-side/find-sub-anagrams])
+  app-db
+  {:inspect-data true
+   :history true})
+
+(defcard reset-state
+  (sab/html [:input {:type "submit"
+                     :on-click #(rf/dispatch [:clear-words])} "Click to reset."]))
 
 (defn main []
   ;; conditionally start the app based on wether the #main-app-area

@@ -17,6 +17,13 @@
  (fn server-find [db [value]]
    (assoc db :found-words value)))
 
+;; a simple handler to reset the data.
+(register-handler
+ :clear-words
+ [debug trim-v debug]
+ (fn [db []]
+   (assoc db :found-words [])))
+
 ;; We register a subscription here. It doesn't need to use the same
 ;; key. We could take in many data.
 
