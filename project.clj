@@ -36,7 +36,8 @@
                  [cljsjs/react-dom "0.14.3-0"
                   :exclusions [cljsjs/react]]
                  [cljsjs/react-dom-server "0.14.3-0"]
-
+                 [secretary "1.2.3"
+                  :exclusions [com.cemerick/clojurescript.test]]
                  #_[org.omcljs/om "0.9.0"]]
   :plugins [[lein-cljsbuild "1.1.2"
              :exclusions [org.clojure/clojure]]
@@ -64,7 +65,7 @@
               :builds [{:id           "devcards"
                         :source-paths ["src/cljs" "src/clj"]
                         :figwheel     { :devcards true }
-                        :compiler     {:main                 "word-finder.core"
+                        :compiler     {:main                 "word-finder.devcards-core"
                                        :source-paths         ["src/cljs" "src/clj"]
                                        :asset-path           "js/compiled/devcards_out"
                                        :output-to            "resources/public/js/compiled/word_finder_devcards.js"
