@@ -19,6 +19,14 @@
     (s/pred (partial re-matches #"(?i)[a-z]+")))
    "Only allows [a-z] as characters, must be non-blank."))
 
+(defn get-error
+  "Check against the schema and just return the name of the error; it
+  only really works if all schemas use `named`."
+  [schema value]
+  (when-let [ret (s/check schema value)]
+    (or (.-name ret)
+        "unknown reason")))
+
 (defn strip-bad-fn
   [s]
   (some-> s

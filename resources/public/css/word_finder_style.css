@@ -2,3 +2,15 @@
 
 .word-list {max-height: 250px;
             overflow: scroll;}
+
+.error {font-size: 50%;
+        font-weight: bold;
+       }
+
+.error-input {
+    background-color: #e06666;
+}
+
+.error:before {
+    content: " ! ";
+}

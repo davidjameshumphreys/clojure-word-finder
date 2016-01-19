@@ -142,6 +142,11 @@ versa_."
   (sab/html [:input {:type "submit"
                      :on-click #(rf/dispatch [:clear-words])} "Click to reset."]))
 
+(defcard validating-input
+  "This kind of input component does a pre-check against a schema. It
+  will prevent the server-side call if the schema doesn't match."
+  (reagent/as-element [components/regex-input-field {:dispatch-fn server-side/find-words}]))
+
 (defn main []
   ;; conditionally start the app based on wether the #main-app-area
   ;; node is on the page

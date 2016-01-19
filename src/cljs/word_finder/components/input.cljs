@@ -1,6 +1,15 @@
 (ns word-finder.components.input
   (:require [reagent.core :as reagent]
-            [re-frame.core :as rf :refer [dispatch subscribe]]))
+            [re-frame.core :as rf :refer [dispatch subscribe]]
+            [word-finder.schemas.word-schemas :as schemas]))
+
+(defn- track-text-val
+  "Reset val to the current value from the event `evt`."
+  [val evt]
+  (->> evt
+       .-target
+       .-value
+       (reset! val)))
 
 (defn input-text-field
   [dispatch-fn]
@@ -15,6 +24,31 @@
                :on-key-down #(case (.-which %)
                                13 (dispatch-fn @val)
                                nil)}])))
+
+(defn regex-input-field
+  "Create a component that will validate against the regex schema. If
+  it passes, it will call the dispatch-fn."
+  [{:keys [dispatch-fn]}]
+  (let [val            (reagent/atom "")
+        error-val      (reagent/atom nil)
+        start-dispatch (fn []
+                         (if-let [err (schemas/get-error schemas/valid-input-regex @val)]
+                           (do
+                             (reset! error-val err))
+                           (do
+                             (reset! error-val nil)
+                             (dispatch-fn @val))))]
+    (fn input-text-field-render [a]
+      [:div {}
+       [:input {:className  (when @error-val ["error-input"])
+                :type        "text"
+                :value       @val
+                :on-change   (partial track-text-val val)
+                :on-key-down #(case (.-which %)
+                                13 (start-dispatch)
+                                nil)}]
+       (when-let [evalue @error-val]
+         [:span {:className ["error"]} evalue])])))
 
 (defn show-return-values
   []
@@ -59,5 +93,4 @@
       [:div.combined
        [:span "Enter text:"]
        [input-text-field dispatch-fn]
-       [show-return-values (subscribe [:found-words])]
-       ])))
+       [show-return-values (subscribe [:found-words])]])))
